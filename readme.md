@@ -1,7 +1,11 @@
 Tiny testing framework for PHP 5.3+
 ===================================
 
-This is small testing framework, written in PHP, for PHP 5.3+. Without crazy OOP, without initializing something, and so on. Everything is static, so you do not need to worry about anything. It does not have any integration with anything.
+This is small testing framework, written in PHP, for PHP 5.3+.
+
+It should be extremely easy to use. 
+
+Without crazy OOP, without initializing something, and so on. Everything is static, so you do not need to worry about anything. It does not have any integration with anything.
 
 Quickstart
 ----------
@@ -9,8 +13,6 @@ Quickstart
 All you have to do, is run an array of tests:
 
 ``` php
-<?php
-
 require('../micro-test.php');
 
 // Run tests
@@ -41,8 +43,6 @@ Though, all tests can be done via `MicroTest::ok($value)`, there are some helper
 If your assertion SHOULD fail, use `MicroTest::shouldFail()`. Following assertions inside current test case will fail, if evaluate to true. If you need to revert this behaviour, use `MicroTest::shouldNotFail()`, of course. For example.
 
 ``` php
-<?hp
-
 MicroTest::run(Array(
                      'shouldFail' => function() {
                         MicroTest::isIdentical(false, false);

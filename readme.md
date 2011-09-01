@@ -13,17 +13,18 @@ Quickstart
 All you have to do, is run an array of tests:
 
 ``` php
+<?php
 require('../micro-test.php');
 
 // Run tests
 MicroTest::run(Array(
-                     'Small test case' => function() {
-                        MicroTest::isIdentical(false, false);
-                        },
-                    'Twice as previous' => function() {
-                        MicroTest::isNull(null);
-                        MicroTest::isNotNull(false);
-                    },
+    'Small test case' => function() {
+       MicroTest::isIdentical(false, false);
+    },
+    'Twice as previous' => function() {
+        MicroTest::isNull(null);
+        MicroTest::isNotNull(false);
+    },
 ));
 
 // Output ugly HTML results
@@ -43,17 +44,18 @@ Though, all tests can be done via `MicroTest::ok($value)`, there are some helper
 If your assertion SHOULD fail, use `MicroTest::shouldFail()`. Following assertions inside current test case will fail, if evaluate to true. If you need to revert this behaviour, use `MicroTest::shouldNotFail()`, of course. For example.
 
 ``` php
+<?php
 MicroTest::run(Array(
-                     'shouldFail' => function() {
-                        MicroTest::isIdentical(false, false);
-                        },
-                    'should fail 2' => function() {
-                        MicroTest::ok(true); // This one is correct.
-                        MicroTest::shouldFail();
-                        MicroTest::ok(false); // This one fails, but, since we expect it to, it's great success.
-                        MicroTest::shouldNotFail();
-                        MicroTest::ok(1); // This one does not fail
-                    },
+    'shouldFail' => function() {
+        MicroTest::isIdentical(false, false);
+    },
+    'should fail 2' => function() {
+        MicroTest::ok(true); // This one is correct.
+        MicroTest::shouldFail();
+        MicroTest::ok(false); // This one fails, but, since we expect it to, it's great success.
+        MicroTest::shouldNotFail();
+        MicroTest::ok(1); // This one does not fail
+    },
 ));
 
 ```

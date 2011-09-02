@@ -7,6 +7,8 @@ It should be extremely easy to use.
 
 Without crazy OOP, without initializing something, and so on. Everything is static, so you do not need to worry about anything. It does not have any integration with anything.
 
+For any feature requests, ideas, and your own hacks, fork-branch-pull-request or just use [issue tracker](/laacz/php-microtest/issues).
+
 Quickstart
 ----------
 

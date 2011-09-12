@@ -6,68 +6,68 @@
  * @link http://github.com/laacz/php-microtest
  */
 class MicroTest {
-    
+
     static $tests = Array();
     static $current_test = null;
     static $shouldFail = false;
-    
+
     /**
      * Assertion did not fail.
      */
-    function expectationOK() {
+    static function expectationOK() {
         self::$tests[self::$current_test]['assertions'][] = Array('success' => !self::$shouldFail, 'backtrace' => debug_backtrace());
     }
-    
+
     /**
      * Assertion failed.
      */
-    function expectationFailed() {
+    static function expectationFailed() {
         self::$tests[self::$current_test]['assertions'][] = Array('success' => self::$shouldFail, 'backtrace' => debug_backtrace());
     }
-    
+
     /**
      * Flag that further test case assertions should fail.
      */
-    function shouldFail() {
+    static function shouldFail() {
         self::$shouldFail = true;
     }
-    
+
     /**
      * Flag that further test case assertions should not fail.
      */
-    function shouldNotFail() {
+    static function shouldNotFail() {
         self::$shouldFail = false;
     }
-    
-    function ok($a) {
+
+    static function ok($a) {
         $a ? self::expectationOK() : self::expectationFailed();
     }
-    
-    function isEqual($a, $b) {
+
+    static function isEqual($a, $b) {
         self::ok($a == $b);
     }
-    
-    function isIdentical($a, $b) {
+
+    static function isIdentical($a, $b) {
         self::ok($a === $b);
     }
-    
-    function isNull($a) {
+
+    static function isNull($a) {
         self::ok($a === null);
     }
-    
-    function isNotNull($a) {
+
+    static function isNotNull($a) {
         self::ok($a !== null);
     }
-    
+
     /**
      * Runs tests.
      */
-    function run($tests) {
+    static function run($tests) {
         //self::$tests = $tests;
         foreach ($tests as $name=>$test) {
             self::$tests[$name] = Array('test' => $test, 'result' => null, 'assertions' => Array());
         }
-        
+
         //print_r(self::$tests);
 
         foreach (self::$tests as $name=>$test) {
@@ -75,59 +75,59 @@ class MicroTest {
             self::shouldNotFail();
             self::$tests[$name]['result'] = $result = $test['test']();
         }
-        
+
     }
-    
+
     /**
      * Just quick and dirty results output to HTML.
      */
-    function resultsHTML() {
+    static function resultsHTML() {
         $return = '';
         $return .= '<style>
         #mtresults {
             font-family: sans-serif;
             font-size: 10pt;
         }
-        
+
         #mtresults thead th {
             background-color: #ccc;
         }
-        
+
         #mtresults tbody th {
             text-align: left;
             background-color: #f0f0f0;
         }
-        
+
         #mtresults tbody td {
             font-family: monospace;
         }
-        
+
         #mtresults th,
         #mtresults td {
             padding: .2em 1em;
         }
-        
+
         #mtresults tfoot {
             font-size: 140%;
         }
-        
+
         #mtresults tfoot th {
             background-color: #ccc;
             text-align: right;
         }
-        
+
         #mtresults tfoot td {
             background-color: #f0f0f0;
         }
-        
+
         #mtresults tfoot tr.success td {
             color: #090;
         }
-        
+
         #mtresults tfoot tr.failure td {
             color: #c00;
         }
-        
+
         </style>';
         $return .= '<table id="mtresults"><thead><tr><th>Test</th><th>Assertions</th><th>Result</th></tr></thead><tbody?';
         $assertions_ok = $assertions_failed = $tests_ok = $tests_failed = 0;
@@ -137,15 +137,15 @@ class MicroTest {
             foreach ($test['assertions'] as $assertion) {
                 $return .= $assertion['success'] ? '<span style="color: #9c9;">✔</span>' : '<span style="color: #c99;">✘</span>';
                 $success = $success && $assertion['success'];
-                
+
                 if ($assertion['success']) {
                     $assertions_ok++;
                 } else {
                     $assertions_failed++;
                 }
-                
+
             }
-            
+
             $return .= '</td><td>';
             $return .= $success ? '<span style="color: #090;">✔</span>' : '<span style="color: #900;">✘</span>';
             $return .= '</td></tr>';
@@ -158,10 +158,10 @@ class MicroTest {
 
         }
         $return .= '</tbody>';
-        
+
         $return .= '<tfoot><tr class="success"><th><span style="color: #090;">✔</span></th><td>' . $assertions_ok . '</td><td>' . $tests_ok . '</td></tr>';
         $return .= '<tr class="failure"><th><span style="color: #900;">✘</span></th><td>' . $assertions_failed . '</td><td>' . $tests_failed . '</td></tr>';
-        
+
         $return .= '</foot></table>';
         return $return;
     }
@@ -169,7 +169,7 @@ class MicroTest {
     /**
      * Just quick and dirty results output to HTML.
      */
-    function resultsPlain() {
+    static function resultsPlain() {
         $assertions_ok = $assertions_failed = $tests_ok = $tests_failed = 0;
         $return = '';
         foreach (self::$tests as $name=>$test) {
@@ -177,7 +177,7 @@ class MicroTest {
             $assertions_str = "";
             foreach ($test['assertions'] as $assertion) {
                 $success = $success && $assertion['success'];
-                
+
                 if ($assertion['success']) {
                     $assertions_ok++;
                     $assertions_str .= "x";
@@ -185,9 +185,9 @@ class MicroTest {
                     $assertions_failed++;
                     $assertions_str .= "v";
                 }
-                
+
             }
-            
+
             if (!$success) {
                 $return .= "$name: Failed. Individual assertions: $assertions_str\n";
             }
@@ -204,4 +204,3 @@ class MicroTest {
         return $return;
     }
 }
-

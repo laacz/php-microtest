@@ -82,6 +82,9 @@ class MicroTest {
      * Just quick and dirty results output to HTML.
      */
     static function resultsHTML() {
+        if (!headers_sent()) {
+            header('Content-Type: text/html; charset=utf-8');
+        }
         $return = '';
         $return .= '<style>
         #mtresults {

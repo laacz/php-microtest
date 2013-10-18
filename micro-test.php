@@ -60,15 +60,26 @@ class MicroTest {
     }
 
     /**
-     * Runs tests.
+     * Adds tests.
      */
-    static function run($tests) {
-        //self::$tests = $tests;
+    static function add($tests) {
         foreach ($tests as $name=>$test) {
             self::$tests[$name] = Array('test' => $test, 'result' => null, 'assertions' => Array());
         }
+    }
 
-        //print_r(self::$tests);
+    /**
+     * Empty tests.
+     */
+    static function removeTests() {
+        self::$tests = Array();
+    }
+
+    /**
+     * Runs tests.
+     */
+    static function run($tests = array()) {
+        self::add($tests);
 
         foreach (self::$tests as $name=>$test) {
             self::$current_test = $name;

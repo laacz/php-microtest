@@ -1,6 +1,8 @@
 Tiny testing framework for PHP 5.3+
 ===================================
 
+[![Build Status](https://travis-ci.org/laacz/php-microtest.svg?branch=master)](https://travis-ci.org/laacz/php-microtest)
+
 This is small testing framework, written in PHP, for PHP 5.3+.
 
 It should be extremely easy to use. 

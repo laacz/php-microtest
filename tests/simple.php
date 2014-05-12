@@ -1,6 +1,6 @@
 <?php
 
-require('../micro-test.php');
+require(dirname(__FILE__) . '/../micro-test.php');
 
 MicroTest::run(Array(
                      'Test is being run' => function() {
